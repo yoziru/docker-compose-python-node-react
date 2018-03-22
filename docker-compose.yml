@@ -1,0 +1,44 @@
+version: '2.1'
+
+services:
+  db:
+    image: postgres:10-alpine
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: "pg_isready -h localhost -p 5432 -q -U postgres"
+      interval: 3s
+      timeout: 5s
+      retries: 5
+    networks:
+      - backend
+  backend:
+    build: ./backend
+    command: ["sanic-admin", "./src/server.py"]
+    volumes:
+      - ./backend:/app/backend
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - backend
+      - frontend
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        NODE_ENV: "development"
+    command: ["yarn", "run", "start"]
+    volumes:
+      - ./frontend:/app/frontend
+    ports:
+      - "3000:3000"
+      - "35729:35729"
+    networks:
+      - frontend
+
+networks:
+  backend:
+  frontend:
