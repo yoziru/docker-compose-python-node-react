@@ -12,3 +12,6 @@ backend_bash:
 
 frontend_bash:
 	docker-compose run --rm frontend /bin/bash
+
+test:
+	docker-compose run frontend yarn run test
