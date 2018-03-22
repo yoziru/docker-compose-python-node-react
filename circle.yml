@@ -3,6 +3,8 @@ jobs:
   build:
     docker:
       - image: docker:stable-git
+    environment:
+      - NODE_ENV: test
     steps:
       - checkout
       - setup_remote_docker
@@ -14,3 +16,8 @@ jobs:
       - run:
           name: Build docker-compose images
           command: docker-compose build
+      - run:
+          name: Start service containers and run tests
+          command: |
+            docker-compose up -d
+            docker-compose exec frontend yarn run test
