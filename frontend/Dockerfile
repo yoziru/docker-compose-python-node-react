@@ -1,9 +1,9 @@
 FROM node:8-slim
 MAINTAINER yoziru-desu
 
-ARG NODE_ENV=development
+ARG NODE_ENV
 
-RUN npm install -g yarn@1.5.1
+RUN npm update yarn@1.5.1
 
 ENV NODE_PATH=/app/frontend/node_modules
 
@@ -14,6 +14,8 @@ RUN set -ex; \
     yarn install --no-cache --frozen-lockfile --production; \
   elif [ "$NODE_ENV" = "test" ]; then \
     yarn install --no-cache --frozen-lockfile; \
+  else \
+    yarn install --frozen-lockfile; \
   fi;
 
 COPY . /app/frontend
