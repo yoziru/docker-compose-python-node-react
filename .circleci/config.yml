@@ -1,0 +1,126 @@
+version: 2
+
+references:
+  defaults_backend: &defaults_backend
+    working_directory: ~/project/backend
+    docker:
+      - image: circleci/python:3.7
+        environment:
+          - LD_LIBRARY_PATH: /usr/local/lib:$LD_LIBRARY_PATH
+          - POSTGRES_PASSWORD: postgres
+          - POSTGRES_HOST: localhost
+
+      - image: circleci/postgres:12-alpine
+        environment:
+          - POSTGRES_USER: postgres
+          - POSTGRES_PASSWORD: postgres
+          - POSTGRES_DB: postgres
+
+  defaults_frontend: &defaults_frontend
+    working_directory: ~/project/frontend
+    docker:
+      - image: circleci/node:12
+
+  restore_backend_cache: &restore_backend_cache
+    restore_cache:
+      keys:
+        # Find a cache corresponding to this specific poetry.lock checksum
+        # when this file is changed, this key will fail
+        - poetry-cache-{{ checksum "poetry.lock" }}
+        # If it fails, use the most recently generated cache (to speed up pip installs)
+        - poetry-cache-
+
+  save_backend_cache: &save_backend_cache
+    save_cache:
+      key: poetry-cache-{{ checksum "poetry.lock" }}
+      paths:
+        - /home/circleci/.cache/pypoetry/virtualenvs
+
+  restore_frontend_cache: &restore_frontend_cache
+    restore_cache:
+      keys:
+        - frontend-cache-{{ checksum "yarn.lock" }}
+        - frontend-cache-
+
+  save_frontend_cache: &save_frontend_cache
+    save_cache:
+      key: frontend-cache-{{ checksum "yarn.lock" }}
+      paths:
+        - ~/.cache/yarn
+        - node_modules
+
+  install_backend_deps: &install_backend_deps
+    run:
+      name: Install python dependencies
+      command: >-
+        sudo pip install poetry==1.0.5
+        && poetry run pip install pip==20.1.1 setuptools==47.1.1
+        && poetry install
+
+  install_frontend_deps: &install_frontend_deps
+    run: yarn install --production=false --frozen-lockfile
+
+jobs:
+  build:
+    <<: *defaults_backend
+    steps:
+      - checkout:
+          path: ~/project
+      - *restore_backend_cache
+      - *install_backend_deps
+      - *save_backend_cache
+
+  test:
+    <<: *defaults_backend
+    steps:
+      - checkout:
+          path: ~/project
+      - *restore_backend_cache
+      - run:
+          name: Python tests
+          command: poetry run python -m pytest -v ./tests
+
+  lint:
+    <<: *defaults_backend
+    steps:
+      - checkout:
+          path: ~/project
+      - *restore_backend_cache
+      - run:
+          name: Linting
+          command: poetry run flake8 . --statistics
+
+  build_frontend:
+    <<: *defaults_frontend
+    steps:
+      - checkout:
+          path: ~/project
+      - *restore_frontend_cache
+      - *install_frontend_deps
+      - *save_frontend_cache
+
+  test_frontend:
+    <<: *defaults_frontend
+    steps:
+      - checkout:
+          path: ~/project
+      - *restore_frontend_cache
+      - run:
+          name: Frontend tests
+          command: yarn test --watchAll=false
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - build_frontend
+      - test_frontend:
+          requires:
+            - build_frontend
+      - test:
+          requires:
+            - build
+      - lint:
+          requires:
+            - build
