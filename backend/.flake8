@@ -1,0 +1,10 @@
+[flake8]
+ignore = D202, W503
+exclude =
+    .git,
+    __pycache__,
+    build,
+    tests,
+    dist
+max-complexity = 18
+max-line-length = 88

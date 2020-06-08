@@ -1,22 +1,26 @@
-version: '2.1'
+version: "2.1"
 
 services:
   db:
-    image: postgres:10-alpine
+    image: postgres:12-alpine
+    environment:
+      - POSTGRES_PASSWORD=password
     ports:
       - "5432:5432"
     healthcheck:
-      test: "pg_isready -h localhost -p 5432 -q -U postgres"
-      interval: 3s
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
       timeout: 5s
       retries: 5
     networks:
       - backend
   backend:
     build: ./backend
-    command: ["sanic-admin", "./src/server.py"]
+    environment:
+      - POSTGRES_PASSWORD=password
+      - SANIC_AUTORELOAD=true
     volumes:
-      - ./backend:/app/backend
+      - ./backend:/srv/app
     ports:
       - "8000:8000"
     depends_on:
@@ -30,9 +34,8 @@ services:
       context: ./frontend
       args:
         NODE_ENV: "development"
-    command: ["yarn", "run", "start"]
     volumes:
-      - ./frontend:/app/frontend
+      - ./frontend:/srv/app
     ports:
       - "3000:3000"
       - "35729:35729"

@@ -1,36 +1,28 @@
-import React, { Component } from "react";
+import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
+import Posts from "./Posts";
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      posts: []
-    };
-  }
-  componentWillMount() {
-    fetch("/api/posts")
-      .then(response => response.json())
-      .then(json => this.setState({ posts: json.posts }));
-  }
-  render() {
-    console.log(this.state.posts);
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
+function App() {
+  return (
+    <div className="App">
+      <Posts />
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.js</code> and save to reload.
         </p>
-
-        {this.state.posts.map(post => <p key={post.id}>{post.content}</p>)}
-      </div>
-    );
-  }
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
+    </div>
+  );
 }
 
 export default App;

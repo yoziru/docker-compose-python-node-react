@@ -1,52 +1,60 @@
+"""Sanic server."""
+import os
+
 from asyncpg import create_pool
 from sanic import Sanic
-from sanic.response import json
+from sanic.log import logger
+from sanic_cors import CORS
 
+from .middlewares import setup_middlewares
+from .routes import setup_routes
 
-def jsonify(records):
-    """
-    Parse asyncpg record response into JSON format
-    """
-    return [dict(r.items()) for r in records]
-
-
-app = Sanic()
 DB_CONFIG = {
-    'user': 'postgres',
-    'password': '',
-    'host': 'db',
-    'port': 5432,
-    'database': 'postgres'
+    "user": os.getenv("POSTGRES_USER", "postgres"),
+    "password": os.getenv("POSTGRES_PASSWORD", "password"),
+    "host": os.getenv("POSTGRES_HOST", "db"),
+    "port": int(os.getenv("POSTGRES_PORT", 5432)),
+    "database": os.getenv("POSTGRES_DB", "postgres"),
 }
 
 
-@app.listener('before_server_start')
-async def register_db(app, loop):
-    app.pool = await create_pool(**DB_CONFIG, loop=loop, max_size=100)
-    async with app.pool.acquire() as connection:
-        await connection.execute('DROP TABLE IF EXISTS sanic_post')
-        await connection.execute("""CREATE TABLE sanic_post (
-                                id serial primary key,
-                                content varchar(64),
-                                post_date timestamp
-                            );""")
-        for i in range(0, 5):
-            content = f'Hello from Sanic - {i}'
-            await connection.execute(f"""INSERT INTO sanic_post(id, content, post_date)
-            VALUES ({i}, '{content}', now())""")
+def init_app():
+    """Initialise Sanic app."""
+    logger.debug("Initialising Sanic..")
+    app = Sanic(name="backend-api")
+    logger.debug("Adding CORS..")
+    CORS(app, automatic_options=True)
+    logger.debug("Setting up routes..")
+    setup_routes(app)
+    logger.debug("Setting up middlewares..")
+    setup_middlewares(app)
+
+    @app.listener("before_server_start")
+    async def register_db(app, loop):
+        app.pool = await create_pool(**DB_CONFIG, loop=loop, max_size=100)
+        async with app.pool.acquire() as connection:
+            await connection.execute("DROP TABLE IF EXISTS sanic_post")
+            await connection.execute(
+                """CREATE TABLE sanic_post (
+                                    id serial primary key,
+                                    content varchar(64),
+                                    post_date timestamp
+                                );"""
+            )
+            for i in range(0, 5):
+                content = f"Hello from Sanic - {i}"
+                await connection.execute(
+                    f"""INSERT INTO sanic_post(id, content, post_date)
+                VALUES ({i}, '{content}', now())"""
+                )
+
+    return app
 
 
-@app.route('/')
-async def test(request):
-    return json({'hello': 'world'})
-
-
-@app.get('/api/posts')
-async def root_get(request):
-    async with app.pool.acquire() as connection:
-        results = await connection.fetch('SELECT * FROM sanic_post')
-        return json({'posts': jsonify(results)})
-
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8000)
+if __name__ == "__main__":
+    app = init_app()
+    app.run(
+        host="0.0.0.0",
+        port=int(os.getenv("PORT", 8000)),
+        auto_reload=os.getenv("SANIC_AUTORELOAD", False),
+    )

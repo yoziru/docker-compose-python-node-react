@@ -1,23 +1,20 @@
-FROM node:8-slim
-MAINTAINER yoziru-desu
+FROM node:12-slim
+MAINTAINER yoziru
 
 ARG NODE_ENV=development
 
-RUN npm install -g yarn@1.5.1
-
-ENV NODE_PATH=/app/frontend/node_modules
-
+ENV NODE_PATH=/srv/app/node_modules
+WORKDIR /srv/app
 COPY yarn.lock package.json ./
 
 RUN set -ex; \
   if [ "$NODE_ENV" = "production" ]; then \
     yarn install --no-cache --frozen-lockfile --production; \
-  elif [ "$NODE_ENV" = "test" ]; then \
+  else \
     yarn install --no-cache --frozen-lockfile; \
   fi;
 
-COPY . /app/frontend
-WORKDIR /app/frontend
+COPY . /srv/app
 
 EXPOSE 3000
 EXPOSE 35729

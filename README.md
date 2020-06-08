@@ -6,7 +6,7 @@ Start an application with a Python Sanic backend using a postgres database and n
 
 ## Requirements
 
-* Docker 1.12.0+
+- Docker 1.12.0+
 
 ## Setup
 
@@ -28,9 +28,9 @@ To get started, run the following commands in shell.
 
     This will start 3 docker containers:
 
-    * `db`: a Postgres 10.x database
-    * `backend`: a bare-bone Python Sanic backend API with `asyncpg` to connect to the database
-    * `frontend`: a `node.js` 8.x development server with the React front-end (based on `create-react-app`) that talks with the `backend` through a proxy
+    - `db`: a Postgres 12.x database
+    - `backend`: a bare-bone Python Sanic backend API with `asyncpg` to connect to the database
+    - `frontend`: a `node.js` 12.x development server with the React front-end (based on `create-react-app`) that talks with the `backend` through a proxy
 
     Both the frontend and backend support live reload on changes.
 
@@ -57,6 +57,14 @@ Provides an interactive bash shell into the Python `backend`
 ### `make frontend_bash`
 
 Provides an interactive bash shell into the node.js `frontend`
+
+### `make test`
+
+Run backend and frontend tests
+
+### `make lint`
+
+Lint backend and frontend src files
 
 ## LICENSE
 
