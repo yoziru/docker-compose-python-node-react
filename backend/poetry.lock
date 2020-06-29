@@ -382,7 +382,7 @@ description = "A web server and web framework that's written to go fast. Build f
 name = "sanic"
 optional = false
 python-versions = ">=3.6"
-version = "20.3.0"
+version = "20.6.2"
 
 [package.dependencies]
 aiofiles = ">=0.3.0"
@@ -391,7 +391,7 @@ httpx = "0.11.1"
 multidict = ">=4.0,<5.0"
 ujson = ">=1.35"
 uvloop = ">=0.5.3"
-websockets = ">=7.0,<9.0"
+websockets = ">=8.1,<9.0"
 
 [package.extras]
 all = ["pytest (5.2.1)", "multidict (>=4.0,<5.0)", "gunicorn", "pytest-cov", "httpcore (0.3.0)", "beautifulsoup4", "pytest-sanic", "pytest-sugar", "pytest-benchmark", "aiofiles", "tox", "black", "flake8", "bandit", "towncrier", "sphinx (>=2.1.2)", "sphinx-rtd-theme", "recommonmark (>=0.5.0)", "docutils", "pygments", "uvloop (>=0.5.3)", "ujson (>=1.35)"]
@@ -522,7 +522,7 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["jaraco.itertools", "func-timeout"]
 
 [metadata]
-content-hash = "547f42d20efe6294300fd80f1f155a8ac2312a4a55c021d2e0327f6196970140"
+content-hash = "efe37dc9f67c0e5d0877046563a4afa11f5e8b3e2b30769755dbf42ef928020d"
 python-versions = "^3.7"
 
 [metadata.files]
@@ -743,8 +743,8 @@ rfc3986 = [
     {file = "rfc3986-1.4.0.tar.gz", hash = "sha256:112398da31a3344dc25dbf477d8df6cb34f9278a94fee2625d89e4514be8bb9d"},
 ]
 sanic = [
-    {file = "sanic-20.3.0-py3-none-any.whl", hash = "sha256:7d05e82772bfbfa084b9c40197ef47e26dc1c0e352f8c34f637ef7c67585975f"},
-    {file = "sanic-20.3.0.tar.gz", hash = "sha256:b4078fe0654d0304f2e86e4f35f3d2d0d5aff56cc0e6d8978838282dff645aff"},
+    {file = "sanic-20.6.2-py3-none-any.whl", hash = "sha256:699c048fe2de417f5b5b8edbed5ab93dbf4e1d277813914a0c7a444705190e05"},
+    {file = "sanic-20.6.2.tar.gz", hash = "sha256:1225065d917a019447c5f2746ddefeb81ec829dc431a4d6a356f081927936a81"},
 ]
 sanic-cors = [
     {file = "Sanic-Cors-0.10.0.post3.tar.gz", hash = "sha256:abb0f8b17d2ecb12d62ecac42ca62bfed9b07fd00ffd83219ad23b99d4df3f23"},
