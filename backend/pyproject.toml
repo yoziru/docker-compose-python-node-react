@@ -11,7 +11,7 @@ sanic = "^20.9.0"
 asyncpg = "^0.21.0"
 sanic-cors = "^0.10.0"
 secure = "^0.2.1"
-orjson = "^3.4.0"
+orjson = "^3.4.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.1.1"
