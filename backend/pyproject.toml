@@ -7,7 +7,7 @@ repository = "https://github.com/yoziru/docker-compose-python-node-react"
 
 [tool.poetry.dependencies]
 python = "^3.7"
-sanic = "^20.9.0"
+sanic = "^20.9.1"
 asyncpg = "^0.21.0"
 sanic-cors = "^0.10.0"
 secure = "^0.2.1"
