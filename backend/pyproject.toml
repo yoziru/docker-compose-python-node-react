@@ -14,7 +14,7 @@ secure = "^0.2.1"
 orjson = "^3.5.1"
 
 [tool.poetry.dev-dependencies]
-pytest = "^6.2.2"
+pytest = "^6.2.3"
 flake8 = "^3.9.0"
 isort = "^5.8.0"
 black = "^20.8b1"
