@@ -34,7 +34,7 @@
     ]
   },
   "devDependencies": {
-    "http-proxy-middleware": "^2.0.0",
+    "http-proxy-middleware": "^2.0.1",
     "prettier": "^2.3.2"
   }
 }
