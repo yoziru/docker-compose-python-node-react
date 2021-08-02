@@ -10,7 +10,7 @@ python = "^3.7"
 sanic = "^20.12.2"
 asyncpg = "^0.23.0"
 sanic-cors = "^0.10.0"
-secure = "^0.2.1"
+secure = "^0.3.0"
 orjson = "^3.6.0"
 
 [tool.poetry.dev-dependencies]
