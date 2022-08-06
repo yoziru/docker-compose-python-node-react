@@ -357,7 +357,7 @@ idna2008 = ["idna"]
 
 [[package]]
 name = "sanic"
-version = "20.12.2"
+version = "20.12.7"
 description = "A web server and web framework that's written to go fast. Build fast. Run fast."
 category = "main"
 optional = false
@@ -369,14 +369,14 @@ httptools = ">=0.0.10"
 httpx = "0.15.4"
 multidict = ">=5.0,<6.0"
 ujson = {version = ">=1.35", markers = "sys_platform != \"win32\" and implementation_name == \"cpython\""}
-uvloop = {version = ">=0.5.3,<0.15.0", markers = "sys_platform != \"win32\" and implementation_name == \"cpython\""}
-websockets = ">=8.1,<9.0"
+uvloop = {version = ">=0.5.3", markers = "sys_platform != \"win32\" and implementation_name == \"cpython\""}
+websockets = ">=8.1,<=9.1"
 
 [package.extras]
-all = ["pytest (==5.2.1)", "multidict (>=5.0,<6.0)", "gunicorn (==20.0.4)", "pytest-cov", "httpcore (>=0.11.0,<0.12.0)", "beautifulsoup4", "pytest-sanic", "pytest-sugar", "pytest-benchmark", "pytest-dependency", "aiofiles", "tox", "black", "flake8", "bandit", "towncrier", "sphinx (>=2.1.2)", "sphinx-rtd-theme", "recommonmark (>=0.5.0)", "docutils", "pygments", "uvloop (>=0.5.3,<0.15.0)", "ujson (>=1.35)"]
-dev = ["pytest (==5.2.1)", "multidict (>=5.0,<6.0)", "gunicorn (==20.0.4)", "pytest-cov", "httpcore (>=0.11.0,<0.12.0)", "beautifulsoup4", "pytest-sanic", "pytest-sugar", "pytest-benchmark", "pytest-dependency", "aiofiles", "tox", "black", "flake8", "bandit", "towncrier", "uvloop (>=0.5.3,<0.15.0)", "ujson (>=1.35)"]
+all = ["pytest (==5.2.1)", "multidict (>=5.0,<6.0)", "gunicorn (==20.0.4)", "pytest-cov", "httpcore (>=0.11.0,<0.12.0)", "beautifulsoup4", "pytest-sanic", "pytest-sugar", "pytest-benchmark", "pytest-dependency", "aiofiles", "tox", "black", "flake8", "bandit", "towncrier", "sphinx (>=2.1.2)", "sphinx-rtd-theme", "recommonmark (>=0.5.0)", "docutils", "pygments", "uvloop (>=0.5.3)", "ujson (>=1.35)"]
+dev = ["pytest (==5.2.1)", "multidict (>=5.0,<6.0)", "gunicorn (==20.0.4)", "pytest-cov", "httpcore (>=0.11.0,<0.12.0)", "beautifulsoup4", "pytest-sanic", "pytest-sugar", "pytest-benchmark", "pytest-dependency", "aiofiles", "tox", "black", "flake8", "bandit", "towncrier", "uvloop (>=0.5.3)", "ujson (>=1.35)"]
 docs = ["sphinx (>=2.1.2)", "sphinx-rtd-theme", "recommonmark (>=0.5.0)", "docutils", "pygments"]
-test = ["pytest (==5.2.1)", "multidict (>=5.0,<6.0)", "gunicorn (==20.0.4)", "pytest-cov", "httpcore (>=0.11.0,<0.12.0)", "beautifulsoup4", "pytest-sanic", "pytest-sugar", "pytest-benchmark", "pytest-dependency", "uvloop (>=0.5.3,<0.15.0)", "ujson (>=1.35)"]
+test = ["pytest (==5.2.1)", "multidict (>=5.0,<6.0)", "gunicorn (==20.0.4)", "pytest-cov", "httpcore (>=0.11.0,<0.12.0)", "beautifulsoup4", "pytest-sanic", "pytest-sugar", "pytest-benchmark", "pytest-dependency", "uvloop (>=0.5.3)", "ujson (>=1.35)"]
 
 [[package]]
 name = "sanic-cors"
@@ -496,7 +496,7 @@ testing = ["jaraco.itertools", "func-timeout"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7"
-content-hash = "4f4d0b330fe45ef23f44a1483d0cad437acd689527d688362d45d13ac51f36b9"
+content-hash = "7f2df22237117bb7790b2db51228631c04ad7c265ee7945ee96bec96088eb531"
 
 [metadata.files]
 aiofiles = [
@@ -723,8 +723,8 @@ rfc3986 = [
     {file = "rfc3986-1.5.0.tar.gz", hash = "sha256:270aaf10d87d0d4e095063c65bf3ddbc6ee3d0b226328ce21e036f946e421835"},
 ]
 sanic = [
-    {file = "sanic-20.12.2-py3-none-any.whl", hash = "sha256:9f01a3ebfe4bf6c57e164bfa1b66c977cb47421e54ae91cc04173cfc711891ce"},
-    {file = "sanic-20.12.2.tar.gz", hash = "sha256:b9d7e24cd293c126f6f4aaf26fcc3b11e35338b86e8c2693b71d05196e7b02b0"},
+    {file = "sanic-20.12.7-py3-none-any.whl", hash = "sha256:ec87a2011956813d9d2411c5d1284a72b383d760b6f316361a7c056df783154c"},
+    {file = "sanic-20.12.7.tar.gz", hash = "sha256:6ff1c900775eaf4c35f50261513cbf6134b3c38e620437c92ed1c712d4dbe0dd"},
 ]
 sanic-cors = [
     {file = "Sanic-Cors-0.10.0.post3.tar.gz", hash = "sha256:abb0f8b17d2ecb12d62ecac42ca62bfed9b07fd00ffd83219ad23b99d4df3f23"},
